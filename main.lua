@@ -9,12 +9,12 @@ local player2
 local ball
 
 local colors = {
-    background = { 0.055, 0.075, 0.12 }, -- deep navy
-    leftPaddle = { 0.30, 0.88, 0.78 }, -- soft turquoise
-    rightPaddle = { 0.78, 0.65, 0.98 }, -- soft lavender
-    ball = { 1.00, 0.91, 0.70 }, -- warm cream
-    centerLine = { 0.27, 0.34, 0.45 },
-    text = { 0.88, 0.92, 0.98 }
+    background = { 0.10, 0.11, 0.10 }, -- charcoal with a hint of green
+    leftPaddle = { 0.98, 0.66, 0.24 }, -- warm amber
+    rightPaddle = { 0.62, 0.82, 0.35 }, -- fresh leaf green
+    ball = { 1.00, 0.96, 0.82 }, -- soft ivory
+    centerLine = { 0.34, 0.36, 0.32 },
+    text = { 0.91, 0.91, 0.85 }
 }
 
 local initialBallSpeed = 300
@@ -75,13 +75,19 @@ function love.update(dt)
     ball.x = ball.x + ball.dx * dt
     ball.y = ball.y + ball.dy * dt
 
-    -- Bounce and clamp so the ball cannot remain beyond the top/bottom edge.
-    if ball.y < 0 then
-        ball.y = 0
-        ball.dy = math.abs(ball.dy)
-    elseif ball.y + ball.height > windowHeight then
-        ball.y = windowHeight - ball.height
-        ball.dy = -math.abs(ball.dy)
+    -- Reflect the ball at the top and bottom. The loop also handles a large
+    -- dt that might move the ball through more than one wall in one update.
+    local lowestY = windowHeight - ball.height
+    while ball.y < 0 or ball.y > lowestY
+        or (ball.y <= 0 and ball.dy < 0)
+        or (ball.y >= lowestY and ball.dy > 0) do
+        if ball.y < 0 then
+            ball.y = -ball.y
+            ball.dy = math.abs(ball.dy)
+        elseif ball.y > lowestY then
+            ball.y = 2 * lowestY - ball.y
+            ball.dy = -math.abs(ball.dy)
+        end
     end
 
     -- Direction checks make each paddle collision respond only once while
