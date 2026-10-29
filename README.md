@@ -2,14 +2,13 @@
 
 ## Student Information
 
-- **Full name:** [Write your full name here]
-- **Class/section:** [Write your class or section here]
+- **Full name:** Mohammad Hussain
+- **Class:** Artificial Intelligence and Games
+- **Department/section:** CAP (Software Engineering)
 
 ## Game Description
 
-A two-player Pong game in which players move paddles to return a ball across the screen. The ball bounces from the top and bottom walls and from either paddle. Each successful paddle hit makes the ball a little faster, up to a safe maximum, and a point is awarded when the other player misses.
-
-The visual theme uses a warm charcoal background, an amethyst left paddle, a champagne-gold right paddle, and an ivory ball. Each player's score is displayed as one large number.
+A two-player Pong game in which players use keyboard controls to return the ball across the screen. The ball bounces off the top and bottom walls and both paddles; when it passes a paddle, the opposing player earns a point. After each successful paddle hit, the ball speeds up slightly to make rallies more challenging, up to a maximum speed. The game uses a warm charcoal background with amethyst and champagne-gold paddles, an ivory ball, and one large score number for each player.
 
 ## Technologies
 
@@ -67,21 +66,17 @@ PongGame/
 ├── main.lua             # Game setup, movement, collisions, and drawing
 ├── README.md            # Instructions and beginner-friendly explanations
 ├── .gitignore           # Temporary and editor-generated files to ignore
-├── screenshots/         # Place a genuine game screenshot here
-└── demo/                # Place a genuine gameplay recording here
+├── screenshots/image.png                 # Screenshot of the game running
+└── demo/Recording 2026-10-29 153703.mp4  # Gameplay demo video
 ```
 
 ## Screenshot
 
-No genuine screenshot has been captured yet. When the game is running, take a screenshot and save it as `screenshots/pong-game.png`, then use this link:
-
-![Pong Game Screenshot](screenshots/pong-game.png)
+![Pong Game Screenshot](screenshots/image.png)
 
 ## Demo Video
 
-No genuine demo recording has been captured yet. Record gameplay with Windows Game Bar (`Win + Alt + R`) or another screen recorder, save it as `demo/pong-demo.mp4`, then use this link:
-
-[Watch the Pong Game Demo](demo/pong-demo.mp4)
+[Watch the Pong Game Demo](<demo/Recording 2026-10-29 153703.mp4>)
 
 ## GitHub Submission
 
