@@ -77,15 +77,3 @@ PongGame/
 ## Demo Video
 
 [Watch the Pong Game Demo](<demo/Recording 2026-10-29 153703.mp4>)
-
-## GitHub Submission
-
-Create a **public** GitHub repository named `pong-love2d`. After creating it, replace `YOUR-USERNAME` below with your GitHub username and run these commands from this project directory:
-
-```bash
-git remote add origin https://github.com/YOUR-USERNAME/pong-love2d.git
-git push -u origin main
-git status
-```
-
-The push is intentionally left for you to perform after creating the repository and confirming your account details.
