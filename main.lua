@@ -7,14 +7,15 @@ local windowHeight = 600
 local player1
 local player2
 local ball
+local scoreFont
 
 local colors = {
-    background = { 0.10, 0.11, 0.10 }, -- charcoal with a hint of green
-    leftPaddle = { 0.98, 0.66, 0.24 }, -- warm amber
-    rightPaddle = { 0.62, 0.82, 0.35 }, -- fresh leaf green
-    ball = { 1.00, 0.96, 0.82 }, -- soft ivory
-    centerLine = { 0.34, 0.36, 0.32 },
-    text = { 0.91, 0.91, 0.85 }
+    background = { 0.075, 0.085, 0.08 }, -- warm charcoal
+    leftPaddle = { 1.00, 0.57, 0.24 }, -- vivid tangerine
+    rightPaddle = { 0.35, 0.82, 0.60 }, -- bright mint
+    ball = { 1.00, 0.96, 0.82 }, -- warm ivory
+    centerLine = { 0.40, 0.43, 0.39 },
+    text = { 0.96, 0.95, 0.88 }
 }
 
 local initialBallSpeed = 300
@@ -46,8 +47,7 @@ local function resetBall(direction)
     ball.dy = initialBallSpeed * 0.45
 end
 
-local function increaseBallSpeed()
-    local direction = ball.dx >= 0 and 1 or -1
+local function increaseBallSpeed(direction)
     setBallVelocity(math.min(ball.speed + speedIncrease, maximumBallSpeed), direction)
 end
 
@@ -55,6 +55,7 @@ function love.load()
     love.window.setMode(windowWidth, windowHeight)
     love.window.setTitle("Pong - Love2D")
     love.graphics.setBackgroundColor(colors.background)
+    scoreFont = love.graphics.newFont(42)
 
     player1 = { x = 30, y = 250, width = 15, height = 100, speed = 360, score = 0 }
     player2 = { x = windowWidth - 45, y = 250, width = 15, height = 100, speed = 360, score = 0 }
@@ -94,10 +95,12 @@ function love.update(dt)
     -- the ball overlaps it. Moving the ball outside clears the overlap.
     if ball.dx < 0 and checkCollision(ball, player1) then
         ball.x = player1.x + player1.width
-        increaseBallSpeed()
+        -- A left-paddle return must send the ball toward the right player.
+        increaseBallSpeed(1)
     elseif ball.dx > 0 and checkCollision(ball, player2) then
         ball.x = player2.x - ball.width
-        increaseBallSpeed()
+        -- A right-paddle return must send the ball toward the left player.
+        increaseBallSpeed(-1)
     end
 
     -- Award a point and serve toward the player who missed.
@@ -125,7 +128,9 @@ function love.draw()
     love.graphics.rectangle("fill", ball.x, ball.y, ball.width, ball.height)
 
     love.graphics.setColor(colors.text)
-    love.graphics.print("Player 1  " .. player1.score, windowWidth / 2 - 150, 24, 0, 1.4, 1.4)
-    love.graphics.print("Player 2  " .. player2.score, windowWidth / 2 + 35, 24, 0, 1.4, 1.4)
+    love.graphics.setFont(scoreFont)
+    -- Show one large score number for each player, as in classic Pong.
+    love.graphics.print(tostring(player1.score), 225, 35)
+    love.graphics.print(tostring(player2.score), 575, 35)
     love.graphics.setColor(1, 1, 1, 1)
 end

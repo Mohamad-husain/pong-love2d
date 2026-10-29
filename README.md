@@ -9,6 +9,8 @@
 
 A two-player Pong game in which players move paddles to return a ball across the screen. The ball bounces from the top and bottom walls and from either paddle. Each successful paddle hit makes the ball a little faster, up to a safe maximum, and a point is awarded when the other player misses.
 
+The visual theme uses a warm charcoal background, a tangerine left paddle, a mint-green right paddle, and an ivory ball. Each player's score is displayed as one large number.
+
 ## Technologies
 
 - Lua
@@ -39,7 +41,7 @@ A two-player Pong game in which players move paddles to return a ball across the
 - `love.draw()` paints the background, center line, paddles, ball, and scores. Drawing only displays the current state; it does not change positions.
 - `checkCollision(a, b)` uses Axis-Aligned Bounding Box (AABB) collision detection. It checks whether the horizontal and vertical ranges of two rectangles overlap.
 - At the top and bottom walls, the ball's vertical velocity (`dy`) changes sign and its position is clamped to the screen edge.
-- A paddle hit reverses the ball's horizontal direction (`dx`) and places the ball just outside the paddle. The direction check prevents another response while the same overlap is being resolved.
+- A paddle hit explicitly sends the ball toward the opponent: the left paddle sets `dx` positive (rightward), while the right paddle sets `dx` negative (leftward). The ball is placed just outside the paddle to prevent another response while resolving the overlap. The speed increase keeps the outgoing trajectory angle.
 - When the ball passes a paddle, the other player scores and the ball returns to the center.
 
 ## Understanding Delta Time
@@ -56,7 +58,7 @@ Movement belongs in `love.update(dt)` because that function advances the game st
 
 ## My Original Feature
 
-After every successful paddle return, ball speed increases by 20 pixels per second. The velocity direction is preserved, and total speed is capped at 520 pixels per second so rallies become more challenging without growing uncontrollably. A new serve starts at the initial speed.
+After every successful paddle return, ball speed increases by 20 pixels per second. The outgoing trajectory angle is kept, and total speed is capped at 520 pixels per second so rallies become more challenging without growing uncontrollably. A new serve starts at the initial speed.
 
 ## Project Structure
 
