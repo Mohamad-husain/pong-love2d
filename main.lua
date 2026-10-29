@@ -89,11 +89,9 @@ function love.update(dt)
     if ball.dx < 0 and checkCollision(ball, player1) then
         ball.x = player1.x + player1.width
         increaseBallSpeed()
-        player1.score = player1.score + 1
     elseif ball.dx > 0 and checkCollision(ball, player2) then
         ball.x = player2.x - ball.width
         increaseBallSpeed()
-        player2.score = player2.score + 1
     end
 
     -- Award a point and serve toward the player who missed.
