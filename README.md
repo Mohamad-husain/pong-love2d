@@ -9,7 +9,7 @@
 
 A two-player Pong game in which players move paddles to return a ball across the screen. The ball bounces from the top and bottom walls and from either paddle. Each successful paddle hit makes the ball a little faster, up to a safe maximum, and a point is awarded when the other player misses.
 
-The visual theme uses a warm charcoal background, a tangerine left paddle, a mint-green right paddle, and an ivory ball. Each player's score is displayed as one large number.
+The visual theme uses a warm charcoal background, an amethyst left paddle, a champagne-gold right paddle, and an ivory ball. Each player's score is displayed as one large number.
 
 ## Technologies
 
@@ -58,7 +58,7 @@ Movement belongs in `love.update(dt)` because that function advances the game st
 
 ## My Original Feature
 
-After every successful paddle return, ball speed increases by 20 pixels per second. The outgoing trajectory angle is kept, and total speed is capped at 520 pixels per second so rallies become more challenging without growing uncontrollably. A new serve starts at the initial speed.
+After every successful paddle return, ball speed increases by 20 pixels per second. The outgoing trajectory angle is kept, and total speed is capped at 520 pixels per second so rallies become more challenging without growing uncontrollably. The horizontal (`dx`) and vertical (`dy`) components are recalculated from that total speed, so the increase is real while the ball keeps its angle. A new serve starts at exactly 300 pixels per second.
 
 ## Project Structure
 

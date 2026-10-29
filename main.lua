@@ -11,8 +11,8 @@ local scoreFont
 
 local colors = {
     background = { 0.075, 0.085, 0.08 }, -- warm charcoal
-    leftPaddle = { 1.00, 0.57, 0.24 }, -- vivid tangerine
-    rightPaddle = { 0.35, 0.82, 0.60 }, -- bright mint
+    leftPaddle = { 0.72, 0.57, 0.86 }, -- soft amethyst
+    rightPaddle = { 0.94, 0.82, 0.53 }, -- champagne gold
     ball = { 1.00, 0.96, 0.82 }, -- warm ivory
     centerLine = { 0.40, 0.43, 0.39 },
     text = { 0.96, 0.95, 0.88 }
@@ -43,8 +43,12 @@ local function resetBall(direction)
     ball.x = windowWidth / 2 - ball.width / 2
     ball.y = windowHeight / 2 - ball.height / 2
     ball.speed = initialBallSpeed
-    ball.dx = direction * initialBallSpeed
-    ball.dy = initialBallSpeed * 0.45
+    -- Split the initial speed into components whose combined magnitude is
+    -- exactly initialBallSpeed, so later speed increases use the right value.
+    local verticalRatio = 0.45
+    local horizontalRatio = math.sqrt(1 - verticalRatio * verticalRatio)
+    ball.dx = direction * initialBallSpeed * horizontalRatio
+    ball.dy = initialBallSpeed * verticalRatio
 end
 
 local function increaseBallSpeed(direction)
